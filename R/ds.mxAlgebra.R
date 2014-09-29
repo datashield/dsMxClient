@@ -17,7 +17,7 @@
 #'
 #' }
 #' 
-ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newObj=NULL, datasources=NULL){
+ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
