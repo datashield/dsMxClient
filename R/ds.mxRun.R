@@ -30,7 +30,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxRun <- function(model, intervals=FALSE, silent=FALSE, suppressWarnings=FALSE, unsafe=FALSE, checkpoint=FALSE, 
+ds.mxRun <- function(model=NULL, intervals=FALSE, silent=FALSE, suppressWarnings=FALSE, unsafe=FALSE, checkpoint=FALSE, 
                      useSocket=FALSE, onlyFrontend=FALSE, useOptimizer=TRUE, newobj=NULL, datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment

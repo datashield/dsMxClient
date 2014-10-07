@@ -2,7 +2,7 @@
 \alias{ds.mxRun}
 \title{Performs the optimization of a model to estimate parameters}
 \usage{
-ds.mxRun(model, intervals = FALSE, silent = FALSE,
+ds.mxRun(model = NULL, intervals = FALSE, silent = FALSE,
   suppressWarnings = FALSE, unsafe = FALSE, checkpoint = FALSE,
   useSocket = FALSE, onlyFrontend = FALSE, useOptimizer = TRUE,
   newobj = NULL, datasources = NULL)
