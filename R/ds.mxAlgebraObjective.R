@@ -1,16 +1,17 @@
 #' 
-#' @title Creates a new MxAlgebra object
-#' @description This function is similar to OpenMx function \code{mxAlgebra}. 
-#' @details See details of the OpenMx function 'mxAlbegra
-#' @param expression an R expression of OpenMx-supported matrix operators and matrix functions.
-#' @param name an optional character string indicating the name of the object.
-#' @param dimnames a list, the dimnames attribute for the algebra
-#' @param newobj the name of the new variable. If this argument is set to NULL, the name of the new 
-#' object is "mxAlgebra_output".
+#' @title Creates a new mxAlgebraObjective object
+#' @description This function is similar to OpenMx function \code{mxAlgebraObjective}. 
+#' @details See details of the OpenMx function 'mxAlgebraObjective' in the package \code{OpenMx}.
+#' @param algebra a character string indicating the name of an mxAlgebra or mxMatrix object to use 
+#' for optimization.
+#' @param numObs (optional) an adjustment to the total number of observations in the model.
+#' @param numStats (optional) An adjustment to the total number of observed statistics in the model.
+#' @param newobj the name of the new object. By default the the name of the new object is "new_mxAlgebraObjective".
 #' @param datasources a list of opal object(s) obtained after login in to opal servers;
 #' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
 #' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
-#' @return an object of type 'mxAlgebra' 
+#' @return a new mxAlgebraObjective object. MxAlgebraObjective objects should be included with models 
+#' with referenced mxAlgebra and mxMatrix objects.
 #' @author Gaye, A.
 #' @export
 #' @examples {
@@ -23,7 +24,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, datasources=NULL){
+ds.mxAlgebraObjective <- function(algebra=NULL, numObs=NA, numStats=NA, newobj=NULL, datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -44,19 +45,21 @@ ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, data
     }
   }
   
-  # create a name by default if user did not provide a name for the new variable
+  # Throw an error message if the required argument is not set
+  if(is.null(algebra)){
+    stop(" Please provie a character string indicating the name of an mxAlgebra or mxMatrix object to use for optimization! ", call.=FALSE)
+  }  
+  
+  # create a name by default if user did not provide a name for the new object
   if(is.null(newobj)){
-    newobj <- "mxAlgebra_output"
+    newobj <- "new_mxAlgebraObjective"
   }
   
-  # call the inernal function that generates the command for the server side function
-  # because OpenMx does uses symbols from its 'omxSymbolTable' we need to deal with that
-  cally <- getCall(expression, name, dimnames)
-  
   # call the server side function that does the job
+  cally <- call("mxAlgebraObjective", algebra, numObs, numStats)
   datashield.assign(datasources, newobj, cally)
   
   # check that the new object has been created and display a message accordingly
   finalcheck <- isAssigned(datasources, newobj)
-
+  
 }

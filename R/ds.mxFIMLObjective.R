@@ -1,16 +1,19 @@
 #' 
-#' @title Creates a new MxAlgebra object
-#' @description This function is similar to OpenMx function \code{mxAlgebra}. 
-#' @details See details of the OpenMx function 'mxAlbegra
-#' @param expression an R expression of OpenMx-supported matrix operators and matrix functions.
-#' @param name an optional character string indicating the name of the object.
-#' @param dimnames a list, the dimnames attribute for the algebra
-#' @param newobj the name of the new variable. If this argument is set to NULL, the name of the new 
-#' object is "mxAlgebra_output".
+#' @title Creates a new mxFIMLObjective object
+#' @description This function is similar to OpenMx function \code{mxFIMLObjective}. 
+#' @details See details of the OpenMx function 'mxFIMLObjective' in the package \code{OpenMx}.
+#' @param covariance a character string indicating the name of the expected covariance algebra.
+#' @param means	a character string indicating the name of the expected means algebra.
+#' @param dimnames An optional character vector to be assigned to the dimnames of the covariance and means algebras.
+#' @param thresholds An optional character string indicating the name of the thresholds matrix.
+#' @param vector a logical value indicating whether the objective function result is the likelihood vector.
+#' @param threshnames An optional character vector to be assigned to the column names of the thresholds matrix.
+#' @param newobj the name of the new object. By default the the name of the new object is "new_mxFIMLObjective".
 #' @param datasources a list of opal object(s) obtained after login in to opal servers;
 #' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
 #' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
-#' @return an object of type 'mxAlgebra' 
+#' @return a new MxFIMLObjective object. MxFIMLObjective objects should be included with models with referenced MxAlgebra, 
+#' MxData and MxMatrix objects
 #' @author Gaye, A.
 #' @export
 #' @examples {
@@ -23,7 +26,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, datasources=NULL){
+ds.mxFIMLObjective <- function(covariance=NULL, means=NULL, dimnames=NA, thresholds=NA, vector=FALSE, threshnames=dimnames, newobj=NULL, datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -44,19 +47,25 @@ ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, data
     }
   }
   
-  # create a name by default if user did not provide a name for the new variable
+  # Throw an error message if required arguments are not set
+  if(is.null(covariance)){
+    stop(" Please provide a character string indicating the name of the expected covariance algebra! ", call.=FALSE)
+  }
+  if(is.null(means)){
+    stop(" Please provide a character string indicating the name of the expected means algebra! ", call.=FALSE)
+  }  
+  
+  
+  # create a name by default if user did not provide a name for the new object
   if(is.null(newobj)){
-    newobj <- "mxAlgebra_output"
+    newobj <- "new_mxFIMLObjective"
   }
   
-  # call the inernal function that generates the command for the server side function
-  # because OpenMx does uses symbols from its 'omxSymbolTable' we need to deal with that
-  cally <- getCall(expression, name, dimnames)
-  
   # call the server side function that does the job
+  cally <- call("mxFIMLObjective", covariance, means, dimnames, thresholds, vector, threshnames)
   datashield.assign(datasources, newobj, cally)
   
   # check that the new object has been created and display a message accordingly
   finalcheck <- isAssigned(datasources, newobj)
-
+  
 }

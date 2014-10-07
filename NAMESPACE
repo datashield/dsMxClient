@@ -1,1 +1,8 @@
 export(ds.mxAlgebra)
+export(ds.mxAlgebraObjective)
+export(ds.mxData)
+export(ds.mxFIMLObjective)
+export(ds.mxMatrix)
+export(ds.mxModel)
+export(ds.mxRun)
+export(ds.mxSummary)

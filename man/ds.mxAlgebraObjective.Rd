@@ -1,23 +1,22 @@
-\name{ds.mxAlgebra}
-\alias{ds.mxAlgebra}
-\title{Creates a new MxAlgebra object}
+\name{ds.mxAlgebraObjective}
+\alias{ds.mxAlgebraObjective}
+\title{Creates a new mxAlgebraObjective object}
 \usage{
-ds.mxAlgebra(expression = NULL, name = NA, dimnames = NA, newobj = NULL,
-  datasources = NULL)
+ds.mxAlgebraObjective(algebra = NULL, numObs = NA, numStats = NA,
+  newobj = NULL, datasources = NULL)
 }
 \arguments{
-  \item{expression}{an R expression of OpenMx-supported
-  matrix operators and matrix functions.}
+  \item{algebra}{a character string indicating the name of
+  an mxAlgebra or mxMatrix object to use for optimization.}
 
-  \item{name}{an optional character string indicating the
-  name of the object.}
+  \item{numObs}{(optional) an adjustment to the total
+  number of observations in the model.}
 
-  \item{dimnames}{a list, the dimnames attribute for the
-  algebra}
+  \item{numStats}{(optional) An adjustment to the total
+  number of observed statistics in the model.}
 
-  \item{newobj}{the name of the new variable. If this
-  argument is set to NULL, the name of the new object is
-  "mxAlgebra_output".}
+  \item{newobj}{the name of the new object. By default the
+  the name of the new object is "new_mxAlgebraObjective".}
 
   \item{datasources}{a list of opal object(s) obtained
   after login in to opal servers; these objects hold also
@@ -27,16 +26,19 @@ ds.mxAlgebra(expression = NULL, name = NA, dimnames = NA, newobj = NULL,
   parameter.}
 }
 \value{
-an object of type 'mxAlgebra'
+a new mxAlgebraObjective object. MxAlgebraObjective objects
+should be included with models with referenced mxAlgebra
+and mxMatrix objects.
 }
 \description{
 This function is similar to OpenMx function
-\code{mxAlgebra}.
+\code{mxAlgebraObjective}.
 }
 \details{
 
 
-See details of the OpenMx function 'mxAlbegra
+See details of the OpenMx function 'mxAlgebraObjective' in
+the package \code{OpenMx}.
 }
 \examples{
 {

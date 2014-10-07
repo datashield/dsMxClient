@@ -31,7 +31,7 @@ getCall <- function(input,objnames,attnames){
     if(symbol=="+"){sign <- "plus"}
     if(symbol=="%^%"){sign <- "percHat"}
     args <- list(qq, sign)
-    myCall <- call("mxAlgebraDS", arg, objnames, attnames)
+    myCall <- call("mxAlgebraDS", args, objnames, attnames)
   }else{
     qq <- unlist(strsplit(input, split="\\("))
     symbol <- qq[1]
