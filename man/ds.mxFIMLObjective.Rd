@@ -4,7 +4,7 @@
 \usage{
 ds.mxFIMLObjective(covariance = NULL, means = NULL, dimnames = NA,
   thresholds = NA, vector = FALSE, threshnames = dimnames,
-  newobj = NULL, datasources = NULL)
+  newobj = "new_mxFIMLObjective", datasources = NULL)
 }
 \arguments{
   \item{covariance}{a character string indicating the name

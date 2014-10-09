@@ -31,7 +31,7 @@
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
 ds.mxRun <- function(model=NULL, intervals=FALSE, silent=FALSE, suppressWarnings=FALSE, unsafe=FALSE, checkpoint=FALSE, 
-                     useSocket=FALSE, onlyFrontend=FALSE, useOptimizer=TRUE, newobj=NULL, datasources=NULL){
+                     useSocket=FALSE, onlyFrontend=FALSE, useOptimizer=TRUE, newobj='mxRun_output', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -55,11 +55,6 @@ ds.mxRun <- function(model=NULL, intervals=FALSE, silent=FALSE, suppressWarnings
   # Throw an error message if required arguments are not set
   if(is.null(model)){
     stop(" Please provide an mxModel object to optimize! ", call.=FALSE)
-  }
-  
-  # create a name by default if user did not provide a name for the new object
-  if(is.null(newobj)){
-    newobj <- "mxRun_output"
   }
   
   # call the server side function that does the job

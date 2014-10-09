@@ -3,7 +3,7 @@
 \title{Creates a new MxData object}
 \usage{
 ds.mxData(observed = NULL, type = NULL, means = NA, numObs = NA,
-  newobj = NULL, datasources = NULL)
+  newobj = "new_mxData", datasources = NULL)
 }
 \arguments{
   \item{observed}{a string, the name of a matrix or
@@ -20,9 +20,8 @@ ds.mxData(observed = NULL, type = NULL, means = NA, numObs = NA,
   supplied in the 'observed' argument. Required unless
   'type' equals "raw".}
 
-  \item{newobj}{the name of the new variable. If this
-  argument is set to NULL, the name of the new object is
-  "new_mxData".}
+  \item{newobj}{the name of the new variable. By default
+  the name of the new object is "new_mxData".}
 
   \item{datasources}{a list of opal object(s) obtained
   after login in to opal servers; these objects hold also

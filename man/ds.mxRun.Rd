@@ -5,7 +5,7 @@
 ds.mxRun(model = NULL, intervals = FALSE, silent = FALSE,
   suppressWarnings = FALSE, unsafe = FALSE, checkpoint = FALSE,
   useSocket = FALSE, onlyFrontend = FALSE, useOptimizer = TRUE,
-  newobj = NULL, datasources = NULL)
+  newobj = "mxRun_output", datasources = NULL)
 }
 \arguments{
   \item{model}{an mxModel object to be optimized.}

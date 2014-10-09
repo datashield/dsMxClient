@@ -26,7 +26,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxFIMLObjective <- function(covariance=NULL, means=NULL, dimnames=NA, thresholds=NA, vector=FALSE, threshnames=dimnames, newobj=NULL, datasources=NULL){
+ds.mxFIMLObjective <- function(covariance=NULL, means=NULL, dimnames=NA, thresholds=NA, vector=FALSE, threshnames=dimnames, newobj='new_mxFIMLObjective', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -54,12 +54,6 @@ ds.mxFIMLObjective <- function(covariance=NULL, means=NULL, dimnames=NA, thresho
   if(is.null(means)){
     stop(" Please provide a character string indicating the name of the expected means algebra! ", call.=FALSE)
   }  
-  
-  
-  # create a name by default if user did not provide a name for the new object
-  if(is.null(newobj)){
-    newobj <- "new_mxFIMLObjective"
-  }
   
   # call the server side function that does the job
   cally <- call("mxFIMLObjective", covariance, means, dimnames, thresholds, vector, threshnames)

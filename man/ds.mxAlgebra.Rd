@@ -2,8 +2,8 @@
 \alias{ds.mxAlgebra}
 \title{Creates a new MxAlgebra object}
 \usage{
-ds.mxAlgebra(expression = NULL, name = NA, dimnames = NA, newobj = NULL,
-  datasources = NULL)
+ds.mxAlgebra(expression = NULL, name = NA, dimnames = NA,
+  newobj = "mxAlgebra_output", datasources = NULL)
 }
 \arguments{
   \item{expression}{an R expression of OpenMx-supported

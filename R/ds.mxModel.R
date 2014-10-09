@@ -18,8 +18,7 @@
 #' @param type character vector. The model type to assign to this model. Defaults to options 
 #' ("mxDefaultType"). See below for valid types
 #' @param name an optional character vector indicating the name of the object.
-#' @param newobj the name of the new object.  By default the same as the string provided for the 
-#' argument 'name' and if 'name' is set to NA then the name of the new object is "new_mxModel".
+#' @param newobj the name of the new object.  By default the name of the new object is "new_mxModel".
 #' @param datasources a list of opal object(s) obtained after login in to opal servers;
 #' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
 #' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
@@ -37,7 +36,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxModel <- function(model=NA, lst, manifestVars=NA, latentVars=NA, remove=FALSE, independent=NA, type=NA, name=NA, newobj=name, datasources=NULL){
+ds.mxModel <- function(model=NA, lst, manifestVars=NA, latentVars=NA, remove=FALSE, independent=NA, type=NA, name=NA, newobj='new_mxModel', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -56,11 +55,6 @@ ds.mxModel <- function(model=NA, lst, manifestVars=NA, latentVars=NA, remove=FAL
         }
       }
     }
-  }
-  
-  # create a name by default if user did not provide a name for the new object
-  if(is.na(newobj)){
-    newobj <- "new_mxModel"
   }
   
   # call the server side function that does the job

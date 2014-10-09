@@ -4,7 +4,7 @@
 \usage{
 ds.mxModel(model = NA, lst, manifestVars = NA, latentVars = NA,
   remove = FALSE, independent = NA, type = NA, name = NA,
-  newobj = name, datasources = NULL)
+  newobj = "new_mxModel", datasources = NULL)
 }
 \arguments{
   \item{model}{this argument is either an mxModel object or
@@ -43,9 +43,7 @@ ds.mxModel(model = NA, lst, manifestVars = NA, latentVars = NA,
   name of the object.}
 
   \item{newobj}{the name of the new object.  By default the
-  same as the string provided for the argument 'name' and
-  if 'name' is set to NA then the name of the new object is
-  "new_mxModel".}
+  name of the new object is "new_mxModel".}
 
   \item{datasources}{a list of opal object(s) obtained
   after login in to opal servers; these objects hold also

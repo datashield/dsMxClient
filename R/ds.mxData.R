@@ -11,8 +11,7 @@
 #' @param means An optional vector of means for use when 'type' is "cov", or "cor".
 #' @param numObs	The number of observations in the data supplied in the 'observed' argument. Required unless 
 #' 'type' equals "raw".
-#' @param newobj the name of the new variable. If this argument is set to NULL, the name of the new 
-#' object is "new_mxData".
+#' @param newobj the name of the new variable. By default the name of the new object is "new_mxData".
 #' @param datasources a list of opal object(s) obtained after login in to opal servers;
 #' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
 #' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
@@ -29,7 +28,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxData <- function(observed=NULL, type=NULL, means=NA, numObs=NA, newobj=NULL, datasources=NULL){
+ds.mxData <- function(observed=NULL, type=NULL, means=NA, numObs=NA, newobj='new_mxData', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -56,11 +55,6 @@ ds.mxData <- function(observed=NULL, type=NULL, means=NA, numObs=NA, newobj=NULL
   }
   if(is.null(type)){
     stop(" Please provide a string defining the 'type' of data in the 'observed' argument! ", call.=FALSE)
-  }
-  
-  # create a name by default if user did not provide a name for the new object
-  if(is.null(newobj)){
-    newobj <- "new_mxData"
   }
   
   # call the server side function that does the job

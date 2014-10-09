@@ -23,7 +23,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, datasources=NULL){
+ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj='mxAlgebra_output', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -42,11 +42,6 @@ ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj=NULL, data
         }
       }
     }
-  }
-  
-  # create a name by default if user did not provide a name for the new variable
-  if(is.null(newobj)){
-    newobj <- "mxAlgebra_output"
   }
   
   # call the inernal function that generates the command for the server side function

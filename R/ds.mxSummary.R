@@ -33,14 +33,9 @@ ds.mxSummary <- function(mxObj, datasources=NULL){
       }
     }
   }
-  
-  # Throw an error message if required arguments are not set
-  if(is.null(mxObj)){
-    stop(" Please provide an object return after an 'ds.mxRun' command", call.=FALSE)
-  }
 
-  # call the server side function that does the job
-  cally <- paste0("summary(", mxObj, ")")
-  datashield.assign(datasources, newobj, as.symbol(cally))
+  # return the summary
+  cally <- paste0("mxSummaryDS(", mxObj, ")")
+  datashield.aggregate(datasources, as.symbol(cally))  
   
 }

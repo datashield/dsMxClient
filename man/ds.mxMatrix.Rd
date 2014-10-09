@@ -3,8 +3,8 @@
 \title{Creates a new MxMatrix object}
 \usage{
 ds.mxMatrix(type = "Full", nrow = NA, ncol = NA, free = FALSE,
-  values = NA, labels = NA, lbound = NA, ubound = NA, byrow = F,
-  dimnames = NA, name = NA, newobj = name, datasources = NULL)
+  values = NA, labels = NA, lbound = NA, ubound = NA, byrow = FALSE,
+  dimnames = NA, name = NA, newobj = "new_mxMatrix", datasources = NULL)
 }
 \arguments{
   \item{type}{a character string indicating the matrix
@@ -55,9 +55,7 @@ ds.mxMatrix(type = "Full", nrow = NA, ncol = NA, free = FALSE,
   name of the MxMatrix object}
 
   \item{newobj}{the name of the new object. By default the
-  same as the string provided for the argument 'name' and
-  if 'name' is set to NA then the name of the new object is
-  "new_mxMatrix".}
+  name of the new object is "new_mxMatrix".}
 
   \item{datasources}{a list of opal object(s) obtained
   after login in to opal servers; these objects hold also

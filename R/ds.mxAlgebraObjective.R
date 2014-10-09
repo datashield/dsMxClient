@@ -24,7 +24,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxAlgebraObjective <- function(algebra=NULL, numObs=NA, numStats=NA, newobj=NULL, datasources=NULL){
+ds.mxAlgebraObjective <- function(algebra=NULL, numObs=NA, numStats=NA, newobj='new_mxAlgebraObjective', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
@@ -49,11 +49,6 @@ ds.mxAlgebraObjective <- function(algebra=NULL, numObs=NA, numStats=NA, newobj=N
   if(is.null(algebra)){
     stop(" Please provie a character string indicating the name of an mxAlgebra or mxMatrix object to use for optimization! ", call.=FALSE)
   }  
-  
-  # create a name by default if user did not provide a name for the new object
-  if(is.null(newobj)){
-    newobj <- "new_mxAlgebraObjective"
-  }
   
   # call the server side function that does the job
   cally <- call("mxAlgebraObjective", algebra, numObs, numStats)

@@ -3,7 +3,7 @@
 \title{Creates a new mxAlgebraObjective object}
 \usage{
 ds.mxAlgebraObjective(algebra = NULL, numObs = NA, numStats = NA,
-  newobj = NULL, datasources = NULL)
+  newobj = "new_mxAlgebraObjective", datasources = NULL)
 }
 \arguments{
   \item{algebra}{a character string indicating the name of
