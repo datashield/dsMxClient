@@ -62,26 +62,10 @@ ds.mxMatrix <- function(type="Full", nrow=NA, ncol=NA, free=FALSE, values=NA, la
       }
     }
   }
-  
-  # generate the arguments of the 'mxMatrix' function on the server site and call the function
-  # 'mxMatrix' seems to work only if some of its arguments are already defined on the server site
-  # that is why I am using this work around and not the lesser 'hassly' solution of just constructing
-  # a call that is passed on the 'datashield.assign' function as done in most of the functions.
-  args <- list(type, nrow, ncol, free, values, labels, lbound, ubound, byrow, dimnames, name)
-  argnames <- c("typeDS", "nrowDS", "ncolDS", "freeDS", "valuesDS", "labelsDS", "lboundDS", "uboundDS", "byrowDS", "dimnamesDS", "nameDS")
-  for(i in 1:length(args)){
-    if(is.logical(args[[i]])){
-      cally <- paste0("c(", paste(args[[i]], collapse=","), ")")    
-    }else{
-      if(is.numeric(args[[i]])){
-        cally <- paste0("c(", paste(args[[i]], collapse=","), ")")
-      }else{
-        cally <- paste0("c('", paste(args[[i]], collapse="','"), "')")     
-      }
-    }
-    datashield.assign(datasources, argnames[i], as.symbol(cally))
-  }
-  datashield.assign(opals, newobj, quote(mxMatrix(type=typeDS,nrow=nrowDS,ncol=ncolDS,free=freeDS,values=valuesDS,labels=labelsDS,lbound=lboundDS,ubound=uboundDS,byrow=byrowDS,dimnames=dimnamesDS,name=nameDS)))
+
+  # call the server side function that does the job
+  cally <- call("mxMatrix", type, nrow, ncol, free, values, labels, lbound, ubound, byrow, dimnames, name)
+  datashield.assign(datasources, newobj, cally)
   
   # check that the new object has been created and display a message accordingly
   finalcheck <- isAssigned(datasources, newobj)

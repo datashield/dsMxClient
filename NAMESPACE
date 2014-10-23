@@ -1,6 +1,7 @@
 export(ds.mxAlgebra)
 export(ds.mxAlgebraObjective)
 export(ds.mxData)
+export(ds.mxEval)
 export(ds.mxFIMLObjective)
 export(ds.mxMatrix)
 export(ds.mxModel)
