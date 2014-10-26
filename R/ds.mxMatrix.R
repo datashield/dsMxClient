@@ -64,8 +64,17 @@ ds.mxMatrix <- function(type="Full", nrow=NA, ncol=NA, free=FALSE, values=NA, la
   }
 
   # call the server side function that does the job
-  cally <- call("mxMatrix", type, nrow, ncol, free, values, labels, lbound, ubound, byrow, dimnames, name)
-  datashield.assign(datasources, newobj, cally)
+  values <- preserveNum(values)
+  lbound <- preserveNum(lbound)
+  ubound <- preserveNum(ubound)  
+  if(!is.na(labels[1])){ labels <- paste0("c('", paste(labels, collapse="','"), "')")}
+  if(!is.na(dimnames[[1]])){ dimnames <- paste0("list('", paste(unlist(dimnames), collapse="','"), "')")}
+  if(is.na(name)){
+    cally <- paste0("mxMatrix('", type, "',", nrow, ",", ncol, ",", free, ",", values, ",", labels, ",", lbound, ",", ubound, ",", byrow, ",", dimnames, ",",name,")")    
+  }else{
+    cally <- paste0("mxMatrix('", type, "',", nrow, ",", ncol, ",", free, ",", values, ",", labels, ",", lbound, ",", ubound, ",", byrow, ",", dimnames, ",'",name,"')")    
+  }
+  datashield.assign(datasources, newobj, as.symbol(cally))
   
   # check that the new object has been created and display a message accordingly
   finalcheck <- isAssigned(datasources, newobj)

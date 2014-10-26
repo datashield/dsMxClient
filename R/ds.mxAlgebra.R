@@ -48,10 +48,15 @@ ds.mxAlgebra = function(expression=NULL, name=NA, dimnames=NA, newobj='mxAlgebra
   # because OpenMx does uses symbols from its 'omxSymbolTable' we need to deal with that
   # so we first contruct the argument 'expression'
   express <- construct(expression)
-  cally <- call("mxAlgebraDS", eval(express), name, dimnames)
-  
+  if(!is.na(dimnames[[1]])){ dimnames <- paste0("list('", paste(unlist(dimnames), collapse="','"), "')")}
+  if(is.na(name)){
+    cally <- paste0("mxAlgebraDS('", express, "', ", name, ", ", dimnames, ")")
+  }else{
+    cally <- paste0("mxAlgebraDS('", express, "', '", name, "', ", dimnames, ")")
+  }
+
   # call the server side function that does the job
-  datashield.assign(datasources, newobj, cally)
+  datashield.assign(datasources, newobj, as.symbol(cally))
   
   # check that the new object has been created and display a message accordingly
   finalcheck <- isAssigned(datasources, newobj)
