@@ -47,7 +47,11 @@ ds.omxGetParameters <- function(model, indep=FALSE, free=c(TRUE, FALSE, NA), fet
   
   
   # call the server side function that does the job
+  if(!is.na(fetch[1])){ fetch <- paste0("c('", paste(fetch, collapse="','"), "')")}
   cally <- paste0("omxGetParameters(", model, ", '", indep, "', ", free, ", ", fetch, ")")
-  datashield.assign(datasources, as.symbol(cally))
+  # cally = call("omxGetParameters", model, indep, eval(free), eval(fetch))
+  output = datashield.aggregate(datasources, cally)
+  
+  return(output)
   
 }
