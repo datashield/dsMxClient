@@ -3,7 +3,7 @@
 \alias{ds.mxModel}
 \title{Creates a new mxModel object}
 \usage{
-ds.mxModel(model = NA, lst, manifestVars = NA, latentVars = NA,
+ds.mxModel(model = NA, lst = NA, manifestVars = NA, latentVars = NA,
   remove = FALSE, independent = NA, type = NA, name = NA,
   newobj = "new_mxModel", datasources = NULL)
 }
