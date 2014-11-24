@@ -47,10 +47,24 @@ ds.omxGetParameters <- function(model, indep=FALSE, free=c(TRUE, FALSE, NA), fet
   
   
   # call the server side function that does the job
-  if(!is.na(fetch[1])){ fetch <- paste0("c('", paste(fetch, collapse="','"), "')")}
-  cally <- paste0("omxGetParameters(", model, ", '", indep, "', ", free, ", ", fetch, ")")
+  if (identical(free, c(TRUE, FALSE, NA))) {
+    free <- TRUE
+  }
+  if (identical(fetch, c("values", "free", "lbound", "ubound", "all"))) {
+    fetch <- "values"
+  }
+  if (!is.logical(free) || length(free) != 1) {
+    stop("argument 'free' must be a 'TRUE', 'FALSE', or NA")
+  }
+  if (!is.character(fetch) || length(fetch) != 1 || !(fetch %in% 
+                                                        c("values", "free", "lbound", "ubound", "all"))) {
+    stop("argument 'fetch' must be one of c('values', 'free', 'lbound', 'ubound', 'all')")
+  }
+#   if(!is.na(fetch[1])){ fetch <- paste0("c('", paste(fetch, collapse="','"), "')")}
+#   if(!is.na(free[1])){ free <- paste0("c(", paste(free, collapse=", "), ")")}
+  cally <- paste0("omxGetParameters(model=", model, ", indep=", indep, ", free=", free, ", fetch='", fetch, "')")
   # cally = call("omxGetParameters", model, indep, eval(free), eval(fetch))
-  output = datashield.aggregate(datasources, cally)
+  output = datashield.aggregate(datasources, as.symbol(cally))
   
   return(output)
   
