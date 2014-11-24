@@ -36,7 +36,7 @@
 #' Timothy C. Bates, Paras Mehta, Timo von Oertzen, Ross J. Gore, Michael D. Hunter, Daniel C. Hackett, Julian Karch and 
 #' Andreas M. Brandmaier. (2012) OpenMx 1.3 User Guide.
 #' 
-ds.mxModel <- function(model=NA, lst, manifestVars=NA, latentVars=NA, remove=FALSE, independent=NA, type=NA, name=NA, newobj='new_mxModel', datasources=NULL){
+ds.mxModel <- function(model=NA, lst=NA, manifestVars=NA, latentVars=NA, remove=FALSE, independent=NA, type=NA, name=NA, newobj='new_mxModel', datasources=NULL){
   
   # if no opal login details were provided look for 'opal' objects in the environment
   if(is.null(datasources)){
