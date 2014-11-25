@@ -54,13 +54,14 @@ ds.omxSetParameters <- function(model, labels, free=NULL, values=NULL, newlabels
   
   # call the server side function that does the job
   if(!is.na(labels[1])){ labels <- paste0("c('", paste(labels, collapse="','"), "')")}
-  if(!is.na(newlabels[1])){ newlabels <- paste0("c('", paste(newlabels, collapse="','"), "')")}
+  if (!is.null(newlabels))
+    if(!is.na(newlabels[1])){ newlabels <- paste0("c('", paste(newlabels, collapse="','"), "')")}
   values = preserveNum(values)
   lbound <- preserveNum(lbound)
   ubound <- preserveNum(ubound) 
-#   cally <- paste0("omxSetParameters(model=", model, ", labels=", labels, ", free=", free, ", values=", values, ", newlabels=", newlabels, ", lbound=", lbound, ", ubound=", ubound, ", indep=", indep, ", strict=", strict, ", name='", name,  "')")
+  # cally <- paste0("omxSetParameters(", model, labels, free, values, newlabels, lbound, ubound, indep, strict, "'", name,  "')")
   cally <- call('omxSetParameters', model, labels, free, values, newlabels, lbound, ubound, indep, strict, name)
-  datashield.assign(datasources, newobj, as.symbol(cally))
+  datashield.assign(datasources, newobj, cally)
   
   return(output)
   
