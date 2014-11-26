@@ -54,15 +54,32 @@ ds.omxSetParameters <- function(model, labels, free=NULL, values=NULL, newlabels
   
   # call the server side function that does the job
   if(!is.na(labels[1])){ labels <- paste0("c('", paste(labels, collapse="','"), "')")}
-  if (!is.null(newlabels))
-    if(!is.na(newlabels[1])){ newlabels <- paste0("c('", paste(newlabels, collapse="','"), "')")}
-  values = preserveNum(values)
-  lbound <- preserveNum(lbound)
-  ubound <- preserveNum(ubound) 
-  # cally <- paste0("omxSetParameters(", model, labels, free, values, newlabels, lbound, ubound, indep, strict, "'", name,  "')")
-  cally <- call('omxSetParameters', model, labels, free, values, newlabels, lbound, ubound, indep, strict, name)
-  datashield.assign(datasources, newobj, cally)
+  if (!is.null(newlabels)) {
+    if(!is.na(newlabels[1])){ newlabels <- paste0("c('", paste(newlabels, collapse="','"), "')")} } else
+      newlabels = 'NULL'
+  if (is.null(name)) {name_NULL = 'NULL'}
   
-  return(output)
+  if (is.null(free)) {free = 'NULL'}
+  
+  if(!is.null(values)){ values <- preserveNum(values)} else
+    values = 'NULL'
+  if(!is.null(lbound)){ lbound <- preserveNum(lbound)} else
+    lbound = 'NULL'
+  if(!is.null(ubound)){ ubound <- preserveNum(ubound)} else
+    ubound = 'NULL'
+  
+  
+  
+
+#   cally <- paste0("omxSetParameters(", model, labels, free, values, newlabels, lbound, ubound, indep, strict, "'", name,  "')")
+  if (is.null(name))
+    cally <- paste0("omxSetParameters(model=", model, ", labels=", labels, ", free=", free, ", values=", values, ", newlabels=", newlabels, ", lbound=", lbound, ", ubound=", ubound, ", indep=", indep, ", strict=", strict, ", name=", name_NULL,  ")") else
+      cally <- paste0("omxSetParameters(model=", model, ", labels=", labels, ", free=", free, ", values=", values, ", newlabels=", newlabels, ", lbound=", lbound, ", ubound=", ubound, ", indep=", indep, ", strict=", strict, ", name='", name,  "')")
+  # cally <- call('omxSetParameters', model, labels, free, values, newlabels, lbound, ubound, indep, strict, name)
+  datashield.assign(datasources, newobj, as.symbol(cally))
+  
+  
+  # check that the new object has been created and display a message accordingly
+  finalcheck <- isAssigned(datasources, newobj)
   
 }
