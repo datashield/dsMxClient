@@ -60,10 +60,8 @@ ds.omxGetParameters <- function(model, indep=FALSE, free=c(TRUE, FALSE, NA), fet
                                                         c("values", "free", "lbound", "ubound", "all"))) {
     stop("argument 'fetch' must be one of c('values', 'free', 'lbound', 'ubound', 'all')")
   }
-#   if(!is.na(fetch[1])){ fetch <- paste0("c('", paste(fetch, collapse="','"), "')")}
-#   if(!is.na(free[1])){ free <- paste0("c(", paste(free, collapse=", "), ")")}
+
   cally <- paste0("omxGetParameters(model=", model, ", indep=", indep, ", free=", free, ", fetch='", fetch, "')")
-  # cally = call("omxGetParameters", model, indep, eval(free), eval(fetch))
   output = datashield.aggregate(datasources, as.symbol(cally))
   
   return(output)
