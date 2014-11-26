@@ -12,7 +12,10 @@ preserveNum <- function (x)
 {
   if (is.matrix(x)) {
     return(paste0("matrix(c(", paste(as.numeric(x), collapse=","), "),", dim(x)[1], ",", dim(x)[2], ")"))
-  }
+  } else
+    if (is.numeric(x)) {
+      return(paste0("c(", paste(x, collapse=","), ")"))
+    }
   else {
     return(x)
   }
