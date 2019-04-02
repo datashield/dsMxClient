@@ -24,9 +24,9 @@
 #' The list can be named, and the list names will be used as names for the dimensions.
 #' @param name an optional character string indicating the name of the MxMatrix object
 #' @param newobj the name of the new object. By default the name of the new object is "new_mxMatrix".
-#' @param datasources a list of opal object(s) obtained after login in to opal servers;
-#' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
-#' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' 
+#'  
 #' @return a new mxMatrix object, which consists of a 'values' matrix of numeric starting values, a 'free' 
 #' matrix describing free parameter specification, a 'labels' matrix of labels for the variable names, and 
 #' 'lbound' and 'ubound' matrices of the lower and upper parameter bounds.
@@ -44,23 +44,9 @@
 #' 
 ds.mxMatrix <- function(type="Full", nrow=NA, ncol=NA, free=FALSE, values=NA, labels=NA, lbound=NA, ubound=NA, byrow=FALSE, dimnames=NA, name=NA, newobj='new_mxMatrix', datasources=NULL){
   
-  # if no opal login details were provided look for 'opal' objects in the environment
+  # look for DS connections
   if(is.null(datasources)){
-    findLogin <- getOpals()
-    if(findLogin$flag == 1){
-      datasources <- findLogin$opals
-    }else{
-      if(findLogin$flag == 0){
-        stop(" Are yout logged in to any server? Please provide a valid opal login object! ", call.=FALSE)
-      }else{
-        message(paste0("More than one list of opal login object were found: '", paste(findLogin$opals,collapse="', '"), "'!"))
-        userInput <- readline("Please enter the name of the login object you want to use: ")
-        datasources <- eval(parse(text=userInput))
-        if(class(datasources[[1]]) != 'opal'){
-          stop("End of process: you failed to enter a valid login object", call.=FALSE)
-        }
-      }
-    }
+    datasources <- datashield.connections_find()
   }
 
   # call the server side function that does the job

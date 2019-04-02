@@ -1,11 +1,24 @@
 Package: dsMxClient
 Maintainer: <datashield@obiba.org>
 Author: <datashield@obiba.org>
-Version: 1.0.0
+Version: 1.1.0
 License: GPL-3
 Title: Datashield package for advanced structural equation modelling
+Description: This package implements functions from the OpenMx library
+    DataSHIELD is an infrastructure and series of R packages that 
+    enables the remote and non-disclosive analysis of sensitive research data.
 Depends:
+    DSI,
     dsBaseClient,
     dsGraphicsClient,
     dsStatsClient
-Description: This package implements functions from the OpenMx library
+Suggests: 
+    knitr,
+    DSLite,
+    dsStats
+URL: http://datashield.ac.uk
+BugReports: https://github.com/datashield/dsMxClient
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true

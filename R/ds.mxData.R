@@ -12,9 +12,9 @@
 #' @param numObs	The number of observations in the data supplied in the 'observed' argument. Required unless 
 #' 'type' equals "raw".
 #' @param newobj the name of the new variable. By default the name of the new object is "new_mxData".
-#' @param datasources a list of opal object(s) obtained after login in to opal servers;
-#' these objects hold also the data assign to R, as \code{dataframe}, from opal datasources.
-#' By default an internal function looks for 'opal' objects in the environment and sets this parameter. 
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' 
+#'  
 #' @return a new mxData object.
 #' @author Gaye, A.
 #' @export
@@ -30,23 +30,9 @@
 #' 
 ds.mxData <- function(observed=NULL, type=NULL, means=NA, numObs=NA, newobj='new_mxData', datasources=NULL){
   
-  # if no opal login details were provided look for 'opal' objects in the environment
+  # look for DS connections
   if(is.null(datasources)){
-    findLogin <- getOpals()
-    if(findLogin$flag == 1){
-      datasources <- findLogin$opals
-    }else{
-      if(findLogin$flag == 0){
-        stop(" Are yout logged in to any server? Please provide a valid opal login object! ", call.=FALSE)
-      }else{
-        message(paste0("More than one list of opal login object were found: '", paste(findLogin$opals,collapse="', '"), "'!"))
-        userInput <- readline("Please enter the name of the login object you want to use: ")
-        datasources <- eval(parse(text=userInput))
-        if(class(datasources[[1]]) != 'opal'){
-          stop("End of process: you failed to enter a valid login object", call.=FALSE)
-        }
-      }
-    }
+    datasources <- datashield.connections_find()
   }
   
   # Throw an error message if required arguments are not set
